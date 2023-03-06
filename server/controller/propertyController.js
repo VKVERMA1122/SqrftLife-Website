@@ -87,28 +87,60 @@ const deleteProperty = async (req, res) => {
     res.send("something went worng");
   }
 };
-// const getLeadByAgentId = async (req, res) => {
-//   const id = req.params.id;
-//   try {
-//     const lead = await prisma.Leads.findMany({
-//       where: {
-//         agentId: parseInt(id),
-//       },
-//     });
-//     if (lead.length === 0) {
-//       res.json({ msg: "No data found" });
-//     }
-//     res.json(lead);
-//   } catch (error) {
-//     res.send("something went worng");
-//   }
-// };
+const getLeadByPostedById = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const lead = await prisma.Property.findMany({
+      where: {
+        postedById: parseInt(id),
+      },
+    });
+    if (lead.length === 0) {
+      res.json({ msg: "No data found" });
+    }
+    res.json(lead);
+  } catch (error) {
+    res.send("something went worng");
+  }
+};
+const getVerifiedProperty = async (req, res) => {
+  try {
+    const propertyList = await prisma.Property.findMany({
+      where: {
+        Verified: true,
+      },
+    });
+    if (propertyList.length === 0) {
+      res.json({ msg: "No data found" });
+    }
+    res.json(propertyList);
+  } catch (error) {
+    res.send("something went worng");
+  }
+};
+const getUnverifiedProperty = async (req, res) => {
+  try {
+    const propertyList = await prisma.Property.findMany({
+      where: {
+        Verified: false,
+      },
+    });
+    if (propertyList.length === 0) {
+      res.json({ msg: "No data found" });
+    }
+    res.json(propertyList);
+  } catch (error) {
+    res.send("something went worng");
+  }
+};
 
 module.exports = {
   createProperty,
   getAllProperty,
   getPropertyById,
-  //   getLeadByAgentId,
+  getLeadByPostedById,
   updateProperty,
   deleteProperty,
+  getUnverifiedProperty,
+  getVerifiedProperty,
 };

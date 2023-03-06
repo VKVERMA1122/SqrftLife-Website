@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
   res.send("Home First page");
 });
 app.use("/auth", require("./routes/authRoute"));
-app.use("/property", require("./routes/property"));
+app.use("/property", require("./routes/propertyRoute"));
 app.use(verifyJWT);
 app.use("/user", require("./routes/userRoute"));
 app.use("/lead", require("./routes/leadRoute"));
